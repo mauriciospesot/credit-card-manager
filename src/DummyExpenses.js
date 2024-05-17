@@ -1,4 +1,4 @@
-const EXPENSE_DATA = [
+const DUMMY_EXPENSES = [
   {
     month: "Abril",
     owner: "Mauri",
@@ -78,4 +78,4 @@ const EXPENSE_DATA = [
   },
 ];
 
-export default EXPENSE_DATA;
+export default DUMMY_EXPENSES;

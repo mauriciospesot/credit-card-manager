@@ -1,13 +1,12 @@
-import { forwardRef, useRef, useImperativeHandle } from "react";
+import { forwardRef, useRef, useImperativeHandle, useContext } from "react";
 import { createPortal } from "react-dom";
+import { ExpenseContext } from "../store/expense-context";
 
 const inputStyle =
   "w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none focus:border-blue-500 focus:outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter";
 
-const NewExpenseModal = forwardRef(function Modal(
-  { title, onAddExpenses },
-  ref
-) {
+const NewExpenseModal = forwardRef(function Modal({ title }, ref) {
+  const { setExpenses } = useContext(ExpenseContext);
   const dialog = useRef();
   const month = useRef();
   const owner = useRef();
@@ -27,16 +26,22 @@ const NewExpenseModal = forwardRef(function Modal(
   });
 
   function handleAddExpense() {
-    onAddExpenses(
-      month.current.value,
-      owner.current.value,
-      expenseName.current.value,
-      category.current.value,
-      description.current.value,
-      creditCard.current.value,
-      quota.current.value,
-      price.current.value
-    );
+    const newExpense = {
+      month: month.current.value,
+      owner: owner.current.value,
+      name: expenseName.current.value,
+      category: category.current.value,
+      description: description.current.value,
+      creditCard: creditCard.current.value,
+      quota: quota.current.value,
+      price: price.current.value,
+    };
+
+    setExpenses((prevExpenses) => {
+      const updateExpenses = [...prevExpenses, newExpense];
+
+      return updateExpenses;
+    });
   }
 
   return createPortal(
