@@ -9,7 +9,7 @@ export default function App() {
 
   return (
     <>
-      <nav className="h-14 top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700"></nav>
+      <nav className="h-14 top-0 z-50 w-full bg-white border-b border-gray-200"></nav>
       <div className="flex h-screen">
         <SideBar onOpen={handleOpenExpenses}></SideBar>
         <ExpenseContextProvider>

@@ -2,12 +2,11 @@ import { createContext, useState, useEffect } from "react";
 import DUMMY_EXPENSES from "../DummyExpenses";
 
 export const ExpenseContext = createContext({
-  expenses: [],
+  immutableExpenses: [],
   temporalExpenses: [],
   setExpenses: () => {},
   setTemporalExpenses: () => {},
   searchExpenses: () => {},
-  selectedExpenses: () => {},
   deleteExpenses: () => {},
   editExpense: () => {},
   cancelExpenseEdit: () => {},
@@ -19,11 +18,10 @@ export default function ExpenseContextProvider({ children }) {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
   const [temporalExpenses, setTemporalExpenses] = useState([]);
   const [immutableExpenses, setImmutableExpenses] = useState([]);
-  const [selectedExpenseTableItems, setSelectedExpenseTableItem] = useState([]);
 
   useEffect(() => {
-    setTemporalExpenses(expenses);
-  }, [expenses]);
+    setTemporalExpenses(immutableExpenses);
+  }, [immutableExpenses]);
 
   useEffect(() => {
     setImmutableExpenses(expenses);
@@ -44,46 +42,18 @@ export default function ExpenseContextProvider({ children }) {
     }
   }
 
-  function handleSelectedExpenses(index, event) {
-    setSelectedExpenseTableItem((prevSelectedExpenseTableItems) => {
-      let updateSelectedExpenseTableItems;
-
-      if (!event.target.checked) {
-        updateSelectedExpenseTableItems = prevSelectedExpenseTableItems.filter(
-          (item) => item.tableIndex !== index
-        );
-      } else {
-        updateSelectedExpenseTableItems = [
-          ...prevSelectedExpenseTableItems,
-          {
-            tableIndex: index,
-            checkBoxValue: event.target.checked,
-          },
-        ];
-      }
-
-      return updateSelectedExpenseTableItems;
-    });
-  }
-
-  function handleDeleteExpenses() {
-    const indexToRemove = selectedExpenseTableItems
-      .filter((item) => item.checkBoxValue)
-      .map((item) => item.tableIndex);
-
+  function handleDeleteExpenses(expensesToRemove) {
     setExpenses((prevExpenses) => {
       const updateExpenses = prevExpenses.filter(
-        (item, index) => !indexToRemove.includes(index)
+        (item, index) => !expensesToRemove.includes(index)
       );
 
       return updateExpenses;
     });
-
-    setSelectedExpenseTableItem([]);
   }
 
   function handleEditExpense(index) {
-    setExpenses((prevExpense) => {
+    setTemporalExpenses((prevExpense) => {
       const updateExpense = [...prevExpense];
       updateExpense[index].edit = true;
       return updateExpense;
@@ -91,7 +61,7 @@ export default function ExpenseContextProvider({ children }) {
   }
 
   function handleCancelEdit(expense, index) {
-    setExpenses((prevExpense) => {
+    setTemporalExpenses((prevExpense) => {
       const updateExpense = [...prevExpense];
       updateExpense[index].edit = false;
 
@@ -119,12 +89,11 @@ export default function ExpenseContextProvider({ children }) {
   }
 
   const ctxValue = {
-    expenses,
+    immutableExpenses,
     temporalExpenses,
     setExpenses,
     setTemporalExpenses,
     searchExpenses: handleSearchExpenses,
-    selectedExpenses: handleSelectedExpenses,
     deleteExpenses: handleDeleteExpenses,
     editExpense: handleEditExpense,
     cancelExpenseEdit: handleCancelEdit,

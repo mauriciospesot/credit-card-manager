@@ -47,15 +47,13 @@ const NewExpenseModal = forwardRef(function Modal({ title }, ref) {
   return createPortal(
     <dialog className="bg-white rounded" id="modal" ref={dialog}>
       <div className="">
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {title}
-            </h3>
+        <div className="relative bg-white rounded-lg shadow">
+          <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
             <form method="dialog" id="modal-actions">
               <button
                 type="submit"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                 data-modal-toggle="crud-modal"
               >
                 <svg
@@ -138,7 +136,7 @@ const NewExpenseModal = forwardRef(function Modal({ title }, ref) {
               <div className="col-span-2 sm:col-span-1">
                 <label
                   htmlFor="price"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Price
                 </label>
@@ -155,7 +153,7 @@ const NewExpenseModal = forwardRef(function Modal({ title }, ref) {
               <div className="col-span-2 sm:col-span-1">
                 <label
                   htmlFor="category"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Category
                 </label>
@@ -170,7 +168,7 @@ const NewExpenseModal = forwardRef(function Modal({ title }, ref) {
               <div className="col-span-2 sm:col-span-1">
                 <label
                   htmlFor="price"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Quota
                 </label>
@@ -187,7 +185,7 @@ const NewExpenseModal = forwardRef(function Modal({ title }, ref) {
               <div className="col-span-2 sm:col-span-1">
                 <label
                   htmlFor="Credit Card"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Owner
                 </label>
@@ -201,7 +199,7 @@ const NewExpenseModal = forwardRef(function Modal({ title }, ref) {
               <div className="col-span-2">
                 <label
                   htmlFor="description"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Description
                 </label>
